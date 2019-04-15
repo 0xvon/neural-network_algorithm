@@ -29,7 +29,7 @@ def mean_squad_error(y: np.ndarray, t: np.ndarray) -> np.int:
 
 
 # in the case of one-hot expression
-def cross_entropy(y: np.ndarray, t: np.ndarray) -> np.int:
+def cross_entropy(y: np.ndarray, t: np.ndarray) -> np.float:
     if y.ndim == 1:
         t = t.reshape(1, t.size)
         y = y.reshape(1, y.size)

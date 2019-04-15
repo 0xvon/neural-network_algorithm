@@ -5,7 +5,7 @@ from functions import *
 # step layers
 class ReLu:
     def __init__(self):
-        self.mask: np.ndarray = None
+        self.mask: np.ndarray = np.array([])
 
     def forward(self, x: np.ndarray) -> np.ndarray:
         self.mask = (x <= 0)
@@ -23,7 +23,7 @@ class ReLu:
 
 class Sigmoid:
     def __init__(self):
-        self.out = None
+        self.out: np.ndarray = np.array([])
 
     def forward(self, x: np.ndarray) -> np.ndarray:
         out: np.ndarray = 1 / (1 + np.exp(- x))
@@ -41,9 +41,9 @@ class Affine:
     def __init__(self, w: np.ndarray, b: np.ndarray):
         self.w: np.ndarray = w
         self.b: np.ndarray = b
-        self.x: np.ndarray = None
-        self.dW: np.ndarray = None
-        self.db: np.ndarray = None
+        self.x: np.ndarray = np.array([])
+        self.dW: np.ndarray = np.array([])
+        self.db: np.ndarray = np.array([])
 
     def forward(self, x: np.ndarray) -> np.ndarray:
         self.x = x
@@ -61,11 +61,11 @@ class Affine:
 
 class SoftmaxWithLoss:
     def __init__(self):
-        self.loss: np.ndarray = None
-        self.y: np.ndarray = None
-        self.t: np.ndarray = None
+        self.loss: np.float = 1
+        self.y: np.ndarray = np.array([])
+        self.t: np.ndarray = np.array([])
 
-    def forward(self, y: np.ndarray, t: np.ndarray) -> np.ndarray:
+    def forward(self, y: np.ndarray, t: np.ndarray) -> np.float:
         self.y = y
         self.t = t
         self.loss = cross_entropy(y, t)
