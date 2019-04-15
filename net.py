@@ -1,6 +1,7 @@
-import numpy as np
 from functions import *
-from data import *
+
+
+# from data import *
 
 
 class SimpleNet:
@@ -23,7 +24,6 @@ class MultiLayer:
         self.x = None
         self.y = None
 
-    @staticmethod
     def forward(self, x, y):
         self.x = x
         self.y = y
@@ -31,7 +31,6 @@ class MultiLayer:
 
         return out
 
-    @staticmethod
     def backward(self, dout):
         dx = dout * self.y
         dy = dout * self.x
@@ -43,17 +42,28 @@ class AddLayer:
     def __init__(self):
         pass
 
-    @staticmethod
     def forward(self, x, y):
-        self.x = x
-        self.y = y
         out = x + y
 
         return out
 
-    @staticmethod
     def backward(self, dout):
         dx = dout * 1
         dy = dout * 1
 
         return dx, dy
+
+
+apple = 100
+apple_num = 2
+tax = 1.1
+layer = MultiLayer()
+
+apple_price = layer.forward(apple, apple_num)
+price = layer.forward(apple_price, tax)
+print(price)
+
+dprice = 1
+dapple_price, dtax = layer.backward(dprice)
+dapple, dapple_num = layer.backward(dapple_price)
+print(dapple, dapple_num, tax)
