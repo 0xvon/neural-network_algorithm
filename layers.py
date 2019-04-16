@@ -112,7 +112,7 @@ class SoftmaxWithLoss:
     def forward(self, y: np.ndarray, t: np.ndarray) -> np.float:
         self.y = y
         self.t = t
-        self.loss = cross_entropy(y, t)
+        self.loss = cross_entropy_error(y, t)
 
         return self.loss
 
