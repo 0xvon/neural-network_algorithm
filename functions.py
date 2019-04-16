@@ -10,6 +10,7 @@ NoneType = type(None)
 function = type(a)
 
 
+
 # step
 def sigmoid(x: np.ndarray) -> np.ndarray:
     return 1 / (1 + np.exp(-x))
@@ -65,7 +66,7 @@ def numerical_gradient(f: function, x: np.ndarray) -> np.ndarray:
     return grad
 
 
-def gradient_descent(f: function, init_x: np.ndarray, lr=0.01, step_num=100) -> np.ndarray:
+def gradient_descent(f: function, init_x: np.ndarray, lr: float = 0.01, step_num: int = 100) -> np.ndarray:
     x: np.ndarray = init_x
 
     for i in range(step_num):
