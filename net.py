@@ -1,4 +1,5 @@
 from functions import *
+from layers import *
 
 
 # from data import *
@@ -18,52 +19,20 @@ class SimpleNet:
 
         return loss
 
-
-class MultiLayer:
-    def __init__(self):
-        self.x = None
-        self.y = None
-
-    def forward(self, x, y):
-        self.x = x
-        self.y = y
-        out = x * y
-
-        return out
-
-    def backward(self, dout):
-        dx = dout * self.y
-        dy = dout * self.x
-
-        return dx, dy
+class TwoLayerNet:
+    def __init__(self, input_size, hidden_size, output_size, weight_init_std):
+        self.params: np.ndarray = np.array([])
+        self.layers: dict = {}
+        self.lastLayer = None
 
 
-class AddLayer:
-    def __init__(self):
-        pass
-
-    def forward(self, x, y):
-        out = x + y
-
-        return out
-
-    def backward(self, dout):
-        dx = dout * 1
-        dy = dout * 1
-
-        return dx, dy
+    def predict(self, x: np.ndarray):
+        return
 
 
-apple = 100
-apple_num = 2
-tax = 1.1
-layer = MultiLayer()
+    def loss(self, x: np.ndarray, t: np.ndarray) -> np.float:
+        return
 
-apple_price = layer.forward(apple, apple_num)
-price = layer.forward(apple_price, tax)
-print(price)
 
-dprice = 1
-dapple_price, dtax = layer.backward(dprice)
-dapple, dapple_num = layer.backward(dapple_price)
-print(dapple, dapple_num, tax)
+   def accracy(self, x: np.ndarray) -> np.float:
+       return

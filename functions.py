@@ -1,6 +1,15 @@
 import numpy as np
 
 
+# to instant types "function" and  "NoneType"
+def a():
+    print()
+
+
+NoneType = type(None)
+function = type(a)
+
+
 # step
 def sigmoid(x: np.ndarray) -> np.ndarray:
     return 1 / (1 + np.exp(-x))
@@ -40,9 +49,9 @@ def cross_entropy(y: np.ndarray, t: np.ndarray) -> np.float:
 
 
 # slope
-def numerical_gradient(f, x: np.ndarray) -> np.ndarray:
+def numerical_gradient(f: function, x: np.ndarray) -> np.ndarray:
     h = 1e-4
-    grad = np.zeros_like(x)
+    grad: np.ndarray = np.zeros_like(x)
     for idx in range(x.size):
         tmp_val = x[idx]
         x[idx] = tmp_val + h
@@ -56,11 +65,11 @@ def numerical_gradient(f, x: np.ndarray) -> np.ndarray:
     return grad
 
 
-def gradient_descent(f, init_x: np.ndarray, lr=0.01, step_num=100) -> np.ndarray:
-    x = init_x
+def gradient_descent(f: function, init_x: np.ndarray, lr=0.01, step_num=100) -> np.ndarray:
+    x: np.ndarray = init_x
 
     for i in range(step_num):
-        grad = numerical_gradient(f, x)
+        grad: np.ndarray = numerical_gradient(f, x)
         x -= lr * grad
 
     return x

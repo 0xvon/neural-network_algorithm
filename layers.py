@@ -2,6 +2,50 @@ import numpy as np
 from functions import *
 
 
+# to instant types "function" and  "NoneType"
+def a():
+    print()
+
+
+NoneType = type(None)
+function = type(a)
+
+
+class MultiLayer:
+    def __init__(self):
+        self.x: np.ndarray = np.array([])
+        self.y: np.ndarray = np.array([])
+
+    def forward(self, x: np.ndarray, y: np.ndarray) -> np.ndarray:
+        self.x = x
+        self.y = y
+        out: np.ndarray = x * y
+
+        return out
+
+    def backward(self, dout: np.ndarray):
+        dx: np.ndarray = dout * self.y
+        dy: np.ndarray = dout * self.x
+
+        return dx, dy
+
+
+class AddLayer:
+    def __init__(self):
+        pass
+
+    def forward(self, x: np.ndarray, y: np.ndarray) -> np.ndarray:
+        out: np.ndarray = x + y
+
+        return out
+
+    def backward(self, dout: np.ndarray):
+        dx: np.ndarray = dout * 1
+        dy: np.ndarray = dout * 1
+
+        return dx, dy
+
+
 # step layers
 class ReLu:
     def __init__(self):
@@ -9,7 +53,7 @@ class ReLu:
 
     def forward(self, x: np.ndarray) -> np.ndarray:
         self.mask = (x <= 0)
-        out: np.ndarray = x.copy()
+        out: np.ndarray = x
         out[self.mask] = 0
 
         return out
