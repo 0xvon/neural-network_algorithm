@@ -1,8 +1,8 @@
-from functions import *
+from common.functions import *
 from layers import *
-from data import *
+from dataset.data import *
 from collections import OrderedDict
-from gradient_2d import *
+from common.gradient_2d import *
 
 
 class SimpleNet:
