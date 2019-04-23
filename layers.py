@@ -130,7 +130,6 @@ class Convolution:
         self.stride = stride
         self.pad = pad
 
-
     def forwared(self, x):
         FN, C, FH, FW = self.W.shape
         N, C, H, W = x.shape
