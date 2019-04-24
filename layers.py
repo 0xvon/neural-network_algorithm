@@ -105,11 +105,11 @@ class Affine:
 
 class SoftmaxWithLoss:
     def __init__(self):
-        self.loss: np.float = 1
+        self.loss: float = 1
         self.y: np.ndarray = np.array([])
         self.t: np.ndarray = np.array([])
 
-    def forward(self, y: np.ndarray, t: np.ndarray) -> np.float:
+    def forward(self, y: np.ndarray, t: np.ndarray) -> float:
         self.y = y
         self.t = t
         self.loss = cross_entropy_error(y, t)
@@ -124,43 +124,43 @@ class SoftmaxWithLoss:
 
 
 class Convolution:
-    def __init__(self, W, b, stride=1, pad=0):
-        self.W = W
-        self.b = b
-        self.stride = stride
-        self.pad = pad
+    def __init__(self, W: np.ndarra, b: np.ndarra, stride: int = 1, pad: int = 0):
+        self.W: np.ndarray = W
+        self.b: np.ndarray = b
+        self.stride: int = stride
+        self.pad: int = pad
 
-    def forwared(self, x):
+    def forwared(self, x: np.ndarray) -> np.ndarray:
         FN, C, FH, FW = self.W.shape
         N, C, H, W = x.shape
 
-        out_h = int(1 + (H + 2 * self.pad - FH) / self.stride)
-        out_w = int(1 + (W + 2 * self.pad - FW) / self.stride)
+        out_h: int = int(1 + (H + 2 * self.pad - FH) / self.stride)
+        out_w: int = int(1 + (W + 2 * self.pad - FW) / self.stride)
 
-        col = im2col(x, FH, FW, self.stride, self.pad)
-        col_W = self.W.reshape(FN, -1).T
-        out = np.dot(col, col_W) + self.b
+        col: np.ndarray = im2col(x, FH, FW, self.stride, self.pad)
+        col_W: np.ndarray = self.W.reshape(FN, -1).T
+        out: np.ndarray = np.dot(col, col_W) + self.b
 
-        out = out.reshape(N, out_h, out_w, -1).transpose(0, 3, 1, 2)
+        out: np.ndarray = out.reshape(N, out_h, out_w, -1).transpose(0, 3, 1, 2)
         return out
 
 
 class Pooling:
 
-    def __init__(self, pool_h, pool_w, stride=1, pad=0):
-        self.pool_h = pool_h
-        self.pool_w = pool_w
-        self.stride = stride
-        self.pad = pad
+    def __init__(self, pool_h: int, pool_w: int, stride: int = 1, pad: int = 0):
+        self.pool_h: int = pool_h
+        self.pool_w: int = pool_w
+        self.stride: int = stride
+        self.pad: int = pad
 
-    def forward(self, x):
+    def forward(self, x: np.ndarray) -> np.ndarray:
         N, C, H, W = x.shape
-        out_h = int(1 + (H - self.pool_h) / self.stride)
-        out_w = int(1 + (W - self.pool_w) / self.stride)
+        out_h: int = int(1 + (H - self.pool_h) / self.stride)
+        out_w: int = int(1 + (W - self.pool_w) / self.stride)
 
-        col = im2col(x, self.pool_h, self.pool_w, self.stride, self.pad)
+        col: np.ndrray = im2col(x, self.pool_h, self.pool_w, self.stride, self.pad)
         col = col.reshape(-1, self.pool_h * self.pool_w)
-        out = np.max(col, axis=1)
+        out: np.ndarray = np.max(col, axis=1)
         out = out.reshape(N, out_h, out_w, C).transpose(0, 3, 1, 2)
 
         return out
