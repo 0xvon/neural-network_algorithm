@@ -1,22 +1,23 @@
 import numpy as np
 
+NoneType = type(None)
 
 class SGD:
-    def __init__(self, lr=0.01):
-        self.lr = lr
+    def __init__(self, lr: float = 0.01):
+        self.lr: float = lr
 
-    def update(self, params, grads):
+    def update(self, params: dict, grads: np.ndarray):
         for key in params.keys():
             params[key] -= self.lr * grads[key]
 
 
 class Momentum:
-    def __init__(self, lr=0.01, momentum=0.9):
-        self.lr = lr
-        self.momentum = momentum
-        self.v = None
+    def __init__(self, lr: float = 0.01, momentum: float = 0.9):
+        self.lr: float = lr
+        self.momentum: float = momentum
+        self.v: dict or NoneType = None
 
-    def update(self, params, grads):
+    def update(self, params: dict, grads: np.ndarray):
         if self.v is None:
             self.v = {}
             for key, value in params.items():
@@ -28,11 +29,11 @@ class Momentum:
 
 
 class AdaGrad:
-    def __init__(self, lr=0.01):
-        self.lr = lr
-        self.h = None
+    def __init__(self, lr: float = 0.01):
+        self.lr: float = lr
+        self.h: dict or NoneType = None
 
-    def update(self, params, grads):
+    def update(self, params: dict, grads: np.ndarray):
         if self.h is None:
             self.h = {}
             for key, value in params.items():
@@ -44,12 +45,12 @@ class AdaGrad:
 
 
 class RMSprop:
-    def __init__(self, lr=0.01, decay_rate=0.99):
-        self.lr = lr
-        self.decay_rate = decay_rate
-        self.h = None
+    def __init__(self, lr: float = 0.01, decay_rate: float = 0.99):
+        self.lr: float = lr
+        self.decay_rate: float = decay_rate
+        self.h: dict or None = None
 
-    def update(self, params, grads):
+    def update(self, params: dict, grads: np.ndarray):
         if self.h is None:
             self.h = {}
             for key, val in params.items():
@@ -62,15 +63,15 @@ class RMSprop:
 
 
 class Adam:
-    def __init__(self, lr=0.001, beta1=0.9, beta2=0.999):
-        self.lr = lr
-        self.beta1 = beta1
-        self.beta2 = beta2
-        self.iter = 0
-        self.m = None
-        self.v = None
+    def __init__(self, lr: float = 0.001, beta1: float = 0.9, beta2: float = 0.999):
+        self.lr: float = lr
+        self.beta1: float = beta1
+        self.beta2: float = beta2
+        self.iter: int = 0
+        self.m: dict or NoneType = None
+        self.v: dict or NoneType = None
 
-    def update(self, params, grads):
+    def update(self, params: dict, grads: np.ndarray):
         if self.m is None:
             self.m, self.v = {}, {}
             for key, val in params.items():
@@ -78,7 +79,7 @@ class Adam:
                 self.v[key] = np.zeros_like(val)
 
         self.iter += 1
-        lr_t = self.lr * np.sqrt(1.0 - self.beta2 ** self.iter) / (1.0 - self.beta1 ** self.iter)
+        lr_t: float = self.lr * np.sqrt(1.0 - self.beta2 ** self.iter) / (1.0 - self.beta1 ** self.iter)
 
         for key in params.keys():
             # self.m[key] = self.beta1*self.m[key] + (1-self.beta1)*grads[key]
